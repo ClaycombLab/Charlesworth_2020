@@ -2,7 +2,6 @@
 #   - Clustering diagrams
 #   - Metagene plots
 
-
 ##  ==========================================
 ##    CLUSTERING DIAGRAMS (Figs.4B, 4D, S8B)
 ##  ==========================================
@@ -15,11 +14,14 @@ library(dendsort)
 # Main function
 make.heatmap <- function(all_enriched, extratext){
   
-  ## make.heatmap() produces...
-  ##    all_enriched:
+  ## make.heatmap() produces a clustering diagram based on the targets of the AGOs of interest.
+  ##    all_enriched: data.table object containing the enriched targets for each AGO of interest.
   ##    extratext: (optional) A convenience parameter to distinguish output file names.
   
+  ## Produces a separate plot for each biotype.
   for (btype in unique(all_enriched$biotype)){
+    
+    ## This first bit is just to format the input data for pheatmap()
     print(btype)
     dt = dcast.data.table(all_enriched, formula = biotype + gene ~ Argonaute, value.var = "avg_enrichment")
     dt[is.na(dt)] = 0
@@ -33,9 +35,11 @@ make.heatmap <- function(all_enriched, extratext){
     row.names(mat) = dt$gene
     mat[mat>0] = 1
 
+    ## Dictated how columns are to be clustered
     sort.myhclust = function(...) as.hclust(dendsort(as.dendrogram(...), isReverse = TRUE))
     sorted_cols = sort.myhclust(hclust(dist(t(mat))))
 
+    ## This part enables the number of genes in each column to be labeled
     n_genes <- c()
     for (i in 3:ncol(dt)){
       n <- length(which(dt[, ..i] != 0))
@@ -44,6 +48,8 @@ make.heatmap <- function(all_enriched, extratext){
     ago <- sorted_cols$labels
     col_labels <- paste(ago, n_genes)
 
+    # Main function to generate the heatmap:
+    # Rows are clustered by hierarchical clustering by euclidean distance. 
     p = pheatmap(mat, 
                  main = btype, 
                  show_rownames = FALSE, 
@@ -63,7 +69,9 @@ make.heatmap <- function(all_enriched, extratext){
   }
 }
 
+# Example use
 make.heatmap(all_reads, extratext = "allReads_")
+
 
 ##  =========================================
 ##    METAGENE PLOTS (Figs. 3E, S5E, & S7A)
@@ -209,16 +217,16 @@ make.metagene <- function(paths_to_bams, master_table, txdb, replicates=c("separ
 ## build txdb objects
 gtf_file <- "WS262_protein_coding.gtf"
 txdb = makeTxDbFromGFF(gtf_file, format="gtf")
-## Gene-body
+## For gene body
 genes = genes(txdb)
-## Exons
+## For exons only
 exons = exonsBy(txdb, by="gene")
 exons = GRangesList(lapply(exons, reduce))
-## Transcripts
+## For transcripts
 transcripts = transcriptsBy(txdb, by = "gene")
 transcripts = GRangesList(lapply(transcripts, reduce)) ## Necessary???
 
-## AGO IP enrichment data
+## Read in paths to AGO IP .bam files
 paths_to_bams = read.csv(file = "paths_to_bams-all.csv", stringsAsFactors = FALSE, row.names = 1, header = TRUE)
 
 ## Running the function!!
@@ -229,5 +237,3 @@ paths_to_bams = read.csv(file = "paths_to_bams-all.csv", stringsAsFactors = FALS
 ##  - Replicates as separate plots
 ##  - extra text to distinguish the output file name.
 make.metagene(paths_to_bams, master_table_all, genes, replicates="separate", type="gene-body", extraText="all-reads")
-
-
