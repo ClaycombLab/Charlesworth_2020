@@ -11,7 +11,7 @@ Amanda G. Charlesworth<sup>1,#</sup> , Nicolas J. Lehrbach<sup>2,3,#</sup> , Uri
 
 <sup>*</sup>Correspondence: julie.claycomb@utoronto.ca
 
-### Read our preprint on bioRxiv (link to come).
+### Read our preprint on bioRxiv [here](https://www.biorxiv.org/content/10.1101/2020.07.20.212050v1)!
 ### All data are available from GEO accession [GSE154678](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE154678).
 
 ## Summary
