@@ -39,4 +39,4 @@ only needs to be run once to generate the reference files. The output will be tw
 WS262.gene.whole.transposons.repeats.RData and WS262.gene.parts.transposons.repeats.RData.
 These files contain data related to genomic features in the C. elegans genome (version WS262).
 It uses wormbase annotation (WS262) for all genomic features except for miRNAs which uses
-miRBase annotations (version 22.1).
+miRBase annotations (version 22.1). Contact us for the specific input data used in this paper.
