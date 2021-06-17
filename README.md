@@ -14,5 +14,29 @@ Amanda G. Charlesworth<sup>1,#</sup>, Uri Seroussi<sup>1,#</sup>, Nicolas J. Leh
 ### Read the preprint on bioRxiv [here](https://www.biorxiv.org/content/10.1101/2020.07.20.212050v1).
 ### All data are available from GEO accession [GSE154678](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE154678).
 
-## Summary
-The C. elegans genome encodes nineteen functional Argonaute proteins that use 22G-RNAs, 26G-RNAs, miRNAs, or piRNAs to regulate target transcripts. Only one Argonaute is essential under normal laboratory conditions: CSR-1. While CSR-1 has been studied widely, nearly all studies have overlooked the fact that the csr-1 locus encodes two isoforms. These isoforms differ by an additional 163 amino acids present in the N-terminus of CSR-1a. Using CRISPR-Cas9 genome editing to introduce GFP::3xFLAG into the long (CSR-1a) and short (CSR-1b) isoforms, we found that CSR-1a is expressed during spermatogenesis and in several somatic tissues, including the intestine. CSR-1b is expressed constitutively in the germline. small RNA sequencing of CSR-1 complexes shows that they interact with partly overlapping sets of 22G-RNAs. Phenotypic analyses reveal that the essential functions of csr-1 described in the literature coincide with CSR-1b, while CSR-1a plays tissue specific functions. During spermatogenesis, CSR-1a integrates into an sRNA regulatory network including ALG- 3, ALG-4, and WAGO-10 that is necessary for fertility at 25°C. In the intestine, CSR-1a silences immunity and pathogen-responsive genes, and its loss results in improved survival from the pathogen Pseudomonas aeruginosa. Our findings functionally distinguish the CSR-1 isoforms and highlight the importance of studying each AGO isoform independently.
+## Summary of custom scripts
+### sRNA_quant.R
+
+This script will count reads from a .bam sequence alignment file against the C. elegans
+genome (version WS262). The reads will be counted as sense or antisense to features in the
+genome, termed biotypes (like miRNA, protein coding genes, transposon etc.).
+
+As input, the script requires a .bam file to be counted and two reference files for the 
+genome annotations: WS262.gene.whole.transposons.repeats.RData and
+WS262.gene.parts.transposons.repeats.RData.
+  
+The output of this script will be a list with two elements: (1) results, and (2) results.size.
+results is a list of tables containing the count numbers per gene per biotype.
+results.sizes is a summary table of the amount of reads counted per biotype.
+
+To run this script, just call from the terminal on your .bam file: 
+`>Rscript sRNA_quant.R file.bam`
+
+### c_elegans_reference_prep.R
+
+This script will prepare reference files to be used with the sRNA_quant.R script. This script
+only needs to be run once to generate the reference files. The output will be two files:
+WS262.gene.whole.transposons.repeats.RData and WS262.gene.parts.transposons.repeats.RData.
+These files contain data related to genomic features in the C. elegans genome (version WS262).
+It uses wormbase annotation (WS262) for all genomic features except for miRNAs which uses
+miRBase annotations (version 22.1).
