@@ -21,8 +21,8 @@ This script will count reads from a .bam sequence alignment file against the C. 
 genome (version WS262). The reads will be counted as sense or antisense to features in the
 genome, termed biotypes (like miRNA, protein coding genes, transposon etc.).
 
-As input, the script requires a .bam file to be counted and two reference files for the 
-genome annotations: WS262.gene.whole.transposons.repeats.RData and
+As input, the script requires a .bam file to be counted and two custom reference files for the 
+genome annotations (see below for generating refrence files): WS262.gene.whole.transposons.repeats.RData and
 WS262.gene.parts.transposons.repeats.RData.
   
 The output of this script will be a list with two elements: (1) results, and (2) results.size.
