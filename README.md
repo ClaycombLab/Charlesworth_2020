@@ -11,7 +11,7 @@ Amanda G. Charlesworth<sup>1,#</sup>, Uri Seroussi<sup>1,#</sup>, Nicolas J. Leh
 
 <sup>*</sup>Correspondence: julie.claycomb@utoronto.ca
 
-### Read the preprint on bioRxiv [here](https://www.biorxiv.org/content/10.1101/2020.07.20.212050v1).
+### Read the published paper [here](https://academic.oup.com/nar/article/49/15/8836/6331683?login=true).
 ### All data are available from GEO accession [GSE154678](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE154678).
 
 ## Summary of custom scripts
